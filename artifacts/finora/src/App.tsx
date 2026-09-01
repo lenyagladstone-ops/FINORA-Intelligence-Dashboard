@@ -141,7 +141,7 @@ type Opinion = {
 const personas: Persona[] = [
   {
     id: 'keeper',
-    name: 'Capital Keeper',
+    name: 'Novice',
     short: 'Protect first',
     description: 'Preserves optionality and treats drawdowns as permanent until proven otherwise.',
     priority: 'Downside containment',
@@ -149,7 +149,7 @@ const personas: Persona[] = [
   },
   {
     id: 'builder',
-    name: 'Measured Builder',
+    name: 'Growth',
     short: 'Compound steadily',
     description: 'Prefers durable cash flows, incremental entries, and evidence over urgency.',
     priority: 'Quality at a fair price',
@@ -157,7 +157,7 @@ const personas: Persona[] = [
   },
   {
     id: 'conviction',
-    name: 'Conviction Seeker',
+    name: 'Aggressive',
     short: 'Follow the signal',
     description: 'Accepts volatility when a catalyst changes the long-term earnings path.',
     priority: 'Asymmetric upside',
@@ -165,7 +165,7 @@ const personas: Persona[] = [
   },
   {
     id: 'income',
-    name: 'Income Steward',
+    name: 'Advanced',
     short: 'Fund the future',
     description: 'Values reliable distributions and protects the portfolio’s spending rhythm.',
     priority: 'Cash-flow durability',
@@ -173,7 +173,7 @@ const personas: Persona[] = [
   },
   {
     id: 'mandate',
-    name: 'Mandate Investor',
+    name: 'Preservation',
     short: 'Invest with intent',
     description: 'Balances return with an explicit mandate, governance, and transition risk.',
     priority: 'Real-world alignment',
@@ -276,6 +276,31 @@ type LogEntry = { time: string; event: string; detail: string };
 
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function FinancialAtmosphere() {
+  return (
+    <div className="market-atmosphere" aria-hidden="true">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="none">
+        <path className="atmosphere-grid" d="M0 168H1600 M0 340H1600 M0 512H1600 M0 684H1600" />
+        <path className="atmosphere-line" d="M-30 640 C150 560 205 702 354 584 S580 392 734 486 S964 675 1112 490 S1358 290 1630 390" />
+        <path className="atmosphere-line secondary" d="M-30 306 C128 236 244 318 386 278 S626 168 788 292 S1010 458 1182 334 S1392 184 1630 235" />
+        <path className="atmosphere-line tertiary" d="M-30 775 C176 698 302 790 470 714 S710 610 900 706 S1168 800 1320 658 S1485 560 1630 610" />
+      </svg>
+      <span className="atmosphere-particle one" />
+      <span className="atmosphere-particle two" />
+      <span className="atmosphere-particle three" />
+      <span className="atmosphere-particle four" />
+      <span className="atmosphere-particle five" />
+      <span className="atmosphere-note one" />
+      <span className="atmosphere-note two" />
+      <span className="atmosphere-note three" />
+      <span className="currency-glyph one">₹</span>
+      <span className="currency-glyph two">$</span>
+      <span className="currency-glyph three">€</span>
+      <span className="currency-glyph four">£</span>
+    </div>
+  );
 }
 
 function Shell({
@@ -758,6 +783,14 @@ function OnboardingPage({
         <div className="aside-foot">No brokerage connection required.<br />Your answers stay in this local simulation.</div>
       </aside>
       <main className="onboarding">
+         <Link
+           href="/"
+           className="onboarding-close"
+           data-testid="link-close-onboarding"
+           aria-label="Exit investor profile and return to command center"
+         >
+           <X size={13} /> Exit profile
+         </Link>
         <div className="progress-wrap">
            <div className="progress-meta"><span>Investor profile</span><span className="step-index">0{step} / 05</span></div>
            <div className="progress-track">{[1, 2, 3, 4, 5].map((item) => <span className={`progress-segment${item <= step ? ' filled' : ''}`} key={item} />)}</div>
@@ -974,10 +1007,13 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-           <Router personaId={personaId} setPersonaId={setPersonaId} profile={profile} setProfile={setProfile} goals={goals} setGoals={setGoals} currency={currency} setCurrency={setCurrency} selectedSignalId={selectedSignalId} setSelectedSignalId={setSelectedSignalId} onLog={onLog} logs={logs} perfOpen={perfOpen} setPerfOpen={setPerfOpen} onToast={onToast} />
+          <div className="finora-app">
+            <FinancialAtmosphere />
+            <Router personaId={personaId} setPersonaId={setPersonaId} profile={profile} setProfile={setProfile} goals={goals} setGoals={setGoals} currency={currency} setCurrency={setCurrency} selectedSignalId={selectedSignalId} setSelectedSignalId={setSelectedSignalId} onLog={onLog} logs={logs} perfOpen={perfOpen} setPerfOpen={setPerfOpen} onToast={onToast} />
+            <Toaster />
+            {toast && <div className="toast-note" role="status" data-testid="status-toast">{toast}</div>}
+          </div>
         </WouterRouter>
-        <Toaster />
-        {toast && <div className="toast-note" role="status" data-testid="status-toast">{toast}</div>}
       </TooltipProvider>
     </QueryClientProvider>
   );
