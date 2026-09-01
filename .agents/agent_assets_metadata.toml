@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "UIxa6tJPZ0zsWm_AxGnpr"
+uri = "file://finora-runnable.zip"
+type = "unspecified"
+title = "FINORA runnable source"
+description = "Downloadable FINORA source package with the editable profile flow, pinned vision board, currency switcher, animations, and terminal run guide."
+logical_id = "1e7ea3af-41ea-4561-8963-2642b036a587"
+content_hash = "sha256:126f1ad4562b8fee98594dd1a3e82c89561d53aa6fa54b9a86eb3d474ef5fe7e"
+size = 226355
+mtime_ms = 1788249864083
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:fb3669db-31c7-49f2-abf6-1cbe91e9dfd3/1e7ea3af-41ea-4561-8963-2642b036a587/42d0d739-3d29-4c49-abe8-095fb3b7f93c"
+storage_version_token = "1788249873343021"
+content_type = "application/octet-stream"
